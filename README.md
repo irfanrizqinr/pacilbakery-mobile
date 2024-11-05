@@ -1,8 +1,7 @@
-<blockquote>
-Nama : Irfan Rizqi Nurrahman
-Kelas : PBP C
-NPM : 2306216724
-</blockquote>
+> Nama : Irfan Rizqi Nurrahman  
+> Kelas : PBP C  
+> NPM : 2306216724  
+
 
 ## Tugas 7
 
@@ -56,10 +55,10 @@ Fungsi `setState()` dalam Flutter digunakan untuk memperbarui state dari suatu w
 
 **5. Jelaskan bagaimana cara kamu mengimplementasikan checklist-checklist di atas.**
 
-Step 1 : Mengubah Tema warna aplikasi pada main.dart menjadi brown
-Step 2 : Mengubah sifat widget menjadi stateless dengan penghapusan informasi dan extends StatelessWidget.
-Step 3 : Membuat card sederhana yang berisi informasi pribadi seperti NPM, Nama dan Kelas dengan membuat class Infocard
-Step 4 : Membuat Button card sederhana dan iconnya dengan class baru bernama ItemHomepage, lalu tambahkan pada class MyHomePage. Desain interaksi dari tombol tersebut menggunakan class Itemcard.
-Step 5 : Mengintegrasikan Infocard dan Itemcard untuk ditampilkan pada MyHomePage.
-Step 6 : Flutter anaylyze supaya memastikan tidak ada isu.
-Step 7 : Lakukan Git add, commit, and Push ke remote Repository.
+- Step 1 : Mengubah Tema warna aplikasi pada main.dart menjadi brown
+- Step 2 : Mengubah sifat widget menjadi stateless dengan penghapusan informasi dan extends StatelessWidget.
+- Step 3 : Membuat card sederhana yang berisi informasi pribadi seperti NPM, Nama dan Kelas dengan membuat class Infocard
+- Step 4 : Membuat Button card sederhana dan iconnya dengan class baru bernama ItemHomepage, lalu tambahkan pada class MyHomePage. Desain interaksi dari tombol tersebut menggunakan class Itemcard.
+- Step 5 : Mengintegrasikan Infocard dan Itemcard untuk ditampilkan pada MyHomePage.
+- Step 6 : Flutter anaylyze supaya memastikan tidak ada isu.
+- Step 7 : Lakukan Git add, commit, and Push ke remote Repository.
