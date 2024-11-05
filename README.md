@@ -2,7 +2,7 @@
 Nama : Irfan Rizqi Nurrahman
 Kelas : PBP C
 NPM : 2306216724
-<blockquote>
+</blockquote>
 
 ## Tugas 7
 
