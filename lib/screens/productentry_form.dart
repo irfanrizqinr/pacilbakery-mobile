@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:pacilbakery/screens/menu.dart';
+import 'dart:convert';
 import 'package:pacilbakery/widgets/left_drawer.dart';
-
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 class ProductEntryFormPage extends StatefulWidget {
   const ProductEntryFormPage({super.key});
 
@@ -16,6 +19,8 @@ class _ProductEntryFormPageState extends State<ProductEntryFormPage> {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
+
     return Scaffold(
             appBar: AppBar(
               title: const Center(
@@ -63,8 +68,8 @@ class _ProductEntryFormPageState extends State<ProductEntryFormPage> {
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
                         decoration: InputDecoration(
-                          hintText: "How many do you want",
-                          labelText: "Amount",
+                          hintText: "Give the Price",
+                          labelText: "Price",
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0),
                           ),
@@ -76,10 +81,10 @@ class _ProductEntryFormPageState extends State<ProductEntryFormPage> {
                         },
                         validator: (String? value) {
                           if (value == null || value.isEmpty) {
-                            return "amount tidak boleh kosong!";
+                            return "Price tidak boleh kosong!";
                           }
                           if (int.tryParse(value) == null) {
-                            return "amount harus berupa angka!";
+                            return "Price harus berupa angka!";
                           }
                           return null;
                         },
@@ -117,36 +122,36 @@ class _ProductEntryFormPageState extends State<ProductEntryFormPage> {
                             backgroundColor: WidgetStateProperty.all(
                                 Theme.of(context).colorScheme.primary),
                           ),
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    title: const Text('Product berhasil ditambahkan'),
-                                    content: SingleChildScrollView(
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text('Product Name: $_name'),
-                                          Text('Amount: $_amount'),
-                                          Text('Description: $_description'),
-                                        ],
-                                      ),
-                                    ),
-                                    actions: [
-                                      TextButton(
-                                        child: const Text('OK'),
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                          _formKey.currentState!.reset();
-                                        },
-                                      ),
-                                    ],
+                          onPressed: () async {
+                              if (_formKey.currentState!.validate()) {
+                                  // Kirim ke Django dan tunggu respons
+                                  final response = await request.postJson(
+                                      "http://localhost:8000//create-flutter/",
+                                      jsonEncode(<String, String>{
+                                          'name': _name,
+                                          'price': _amount.toString(),
+                                          'description': _description,
+                                      }),
                                   );
-                                },
-                              );
-                            }
+                                  if (context.mounted) {
+                                      if (response['status'] == 'success') {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(const SnackBar(
+                                          content: Text("Roti baru berhasil disimpan!"),
+                                          ));
+                                          Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(builder: (context) => MyHomePage()),
+                                          );
+                                      } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(const SnackBar(
+                                              content:
+                                                  Text("Terdapat kesalahan, silakan coba lagi."),
+                                          ));
+                                      }
+                                  }
+                              }
                           },
                           child: const Text(
                             "Add to Cart",
